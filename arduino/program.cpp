@@ -1,37 +1,47 @@
 // C++ code
 
-// Notes : 
-//Ce code à été conçu pour être compatible avec Tinkercad
+//Notes (Tinkercad): 
 //La LED RGB doit être configuré sur RCBG
 //L'écran l2c sur pcf8574-based
 
 #include <Servo.h>
 #include <LiquidCrystal.h>
 #include <LiquidCrystal_I2C.h>
+#include <Adafruit_NeoPixel.h>
 
-#define TMP_PIN A0
+const uint8_t TMP_PIN = A0;
+const uint8_t RGB_RED_PIN = 5;
+const uint8_t RGB_GREEN_PIN = 6;
+const uint8_t RGB_BLUE_PIN = 7;
+const uint8_t NEOPIXELS_PIN = 2;
 
-#define RGB_RED_PIN 5
-#define RGB_GREEN_PIN 6
-#define RGB_BLUE_PIN 7
-#define read_tensor() (analogRead(TMP_PIN))
+const uint8_t NEOPIXELS_NUM = 4;
+//Vitesse du ventilateur standard (sans contraintes) 
+const uint16_t SPEED_STD = 100;
 
-LiquidCrystal_I2C lcd(32,16,2);
+constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
 
+uint16_t vitesse_ventilateur = vitesse_std;
+
+const uint8_t COLOR_TABLE[6][3] = {
+	{0, 0, 175},    // Bleu clair - <15°C
+    {0, 0, 255},    // Bleu foncé - <25°C
+    {255, 255, 100},// Jaune - <40°C
+    {255, 140, 0},  // Orange - <55°C
+    {255, 0, 0},    // Rouge - <71°C
+    {255, 0, 0}     // Alerte
+
+}
+
+Adafruit_NeoPixel pixels(NEOPIXELS_NUM, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
+
+LiquidCrystal_I2C lcd(0x20,16,2);
+
+//TODO: implementer avec une table
+// Servo vents[3]
 Servo vent_1;
 Servo vent_2;
 Servo vent_3;
-
-int secondes= 0; // Début du programme
-int vitesse_std = 100; // Vitesse du ventilateur standard (sans contraintes) 
-int vitesse_ventilateur = vitesse_std;
-
-class Logger {
-public:
-  void log() {
-    
-  }
-};
 
 void setup()
 {
@@ -41,12 +51,18 @@ void setup()
   //Ici, ce n'est pas nécessaire :
   //Les ventilateurs/capteurs thermiques sont mis en marche automatiquement
   
+  Serial.begin(115200);
+
+
   //Configuration de l'écran LCD I2C
-  lcd.begin(16, 2);
   lcd.init();
   lcd.backlight();
-  lcd.setCursor(0, 0);
   
+  //Configuration de la bande NeoPixels
+  pixels.begin();
+  pixels.show(€;
+
+  //Attribution dew LEDs aux différents PIN
   pinMode(RGB_RED_PIN, OUTPUT);
   pinMode(RGB_GREEN_PIN, OUTPUT);
   pinMode(RGB_BLUE_PIN, OUTPUT);
@@ -56,8 +72,6 @@ void setup()
   vent_1.attach(13);
   vent_2.attach(12);
   vent_3.attach(11);
-  
-  Serial.begin(9600);
 }
 
 void handle_temperature(float temperature)
@@ -65,22 +79,17 @@ void handle_temperature(float temperature)
   if(temperature < 0) {
     return;
   }
-  
+
   if(temperature <= 15.0) {
     setColor(0, 0, 175); //Bleu clair
-  
   } else if(temperature <= 25.0) {
     setColor(0, 0, 255); //Bleu foncé
-  
   } else if(temperature <= 40.0) {
    	setColor(255, 255, 100); //Jaune
-  
   } else if(temperature <= 55.0) {
     setColor(255, 140, 0); //Orange
-  
   } else if(temperature <= 71) {
     setColor(255, 0, 0); //Rouge
-  
   } else {
    	//Si la température dépasse 71, déclenche un clignotement
     for (int clignotement = 5; clignotement > 0; --clignotement) {
@@ -98,26 +107,34 @@ void handle_temperature(float temperature)
   }
 }
 
-void logger
-{
-  return new class Logger()
-}
-
 void setVitesseVentilateurs() {
   
 }
 
 void setColor(int red, int green, int blue) {
-    analogWrite(RGB_RED_PIN, red);
-    analogWrite(RGB_GREEN_PIN, green);
-    analogWrite(RGB_BLUE_PIN, blue);
+  setPixelsColor(red, green, blue);
+
+  //TODO: Optimisation (native) https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/
+
+  analogWrite(RGB_RED_PIN, red);
+  analogWrite(RGB_GREEN_PIN, green);
+  analogWrite(RGB_BLUE_PIN, blue);
+}
+
+void setPixelsColor(int red, int green, int blue) {
+  for (int i = NEOPIXELS_NUM; i >= 0; --i) {
+    const int color = pixels.Color(red, green, blue);
+  	pixels.setPixelColor(i, color);
+
+  }
+  pixels.show();
 }
 
 void loop()
 {	
   //Methode pour obtenir la valeur du point annalogique A0
   //A l'occurence, le capteur de chaleur
-  int value = read_tensor();
+  int value = analogRead(TMP_PIN);
   
   //Arduino supporte des messages de 10 bits
   //Pouvant donc produire 1024 valeurs différentes (0 à 1023)
@@ -127,14 +144,13 @@ void loop()
   
   //U = (Valeur / 1023) x Ualimentation. Où Ualimentation = 5.0 V
   //équivalant à U = value * (Ualimentation / 1023.0)
-  float voltage = value * (5.0 / 1023.0); 
+  float voltage = value * VOLTS_PER_STEP;
   float temperature = (voltage - 0.5) * 100.0;
-
+	
   lcd.clear();
   lcd.print(temperature);
   
   handle_temperature(temperature);
   
   delay(1000);
-  secondes += 1;
 }
