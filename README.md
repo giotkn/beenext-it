@@ -8,3 +8,6 @@ Possibilités d'optimisations :
         Pour ne pas surcharger les écrans et les ventilateurs
     - Implémentation d'un logger
     - Mode économie d'énergie (intégration d'un tableau de bord?)
+
+
+https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/
