@@ -2,6 +2,7 @@
 BeeNext
 
 Possibilités d'optimisations :
+
     - Implémentation du cache 
         Pour gérer plus intelligemment les alertes
         Pour ne pas surcharger les écrans et les ventilateurs
