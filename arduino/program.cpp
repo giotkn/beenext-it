@@ -38,9 +38,7 @@ LiquidCrystal_I2C lcd(0x20,16,2);
 
 //TODO: implementer avec une table
 // Servo vents[3]
-Servo vent_1;
-Servo vent_2;
-Servo vent_3;
+Servo vent_1, vent_2, vent_3;
 
 void setup()
 {
@@ -107,8 +105,12 @@ void handle_temperature(float temperature)
   }
 }
 
-void setSpeed() {
-  
+void setSpeed(float temperature) {
+    int speed = map(temperature, 0, 70, 0, 180);
+
+    vent_1.write(speed);
+    vent_2.write(speed);
+    vent_3.write(speed);
 }
 
 void setColor(int red, int green, int blue) {
