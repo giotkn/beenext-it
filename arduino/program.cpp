@@ -52,7 +52,7 @@ void setup()
   //Les ventilateurs/capteurs thermiques sont mis en marche automatiquement
   
   Serial.begin(115200);
-
+  while(!Serial);
 
   //Configuration de l'écran LCD I2C
   lcd.init();
@@ -60,7 +60,7 @@ void setup()
   
   //Configuration de la bande NeoPixels
   pixels.begin();
-  pixels.show(€;
+  pixels.show();
 
   //Attribution dew LEDs aux différents PIN
   pinMode(RGB_RED_PIN, OUTPUT);
@@ -107,7 +107,7 @@ void handle_temperature(float temperature)
   }
 }
 
-void setVitesseVentilateurs() {
+void setSpeed() {
   
 }
 
