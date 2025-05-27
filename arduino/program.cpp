@@ -15,15 +15,14 @@ const uint8_t RGB_GREEN_PIN = 6;
 const uint8_t RGB_BLUE_PIN = 7;
 const uint8_t NEOPIXELS_PIN = 2;
 
-const uint8_t NEOPIXELS_NUM = 4;
-//Vitesse du ventilateur standard (sans contraintes) 
-const uint16_t SPEED_STD = 100;
+const uint8_t NEOPIXELS_SIZE = 4;
+const uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes) 
+
+uint16_t VATILATORS_SPEED = STD_SPEED; //Fan = 
 
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
 
-uint16_t vitesse_ventilateur = vitesse_std;
-
-const uint8_t COLOR_TABLE[6][3] = {
+const uint8_t COLORS_TABLE[6][3] = {
 	{0, 0, 175},    // Bleu clair - <15°C
     {0, 0, 255},    // Bleu foncé - <25°C
     {255, 255, 100},// Jaune - <40°C
@@ -33,7 +32,7 @@ const uint8_t COLOR_TABLE[6][3] = {
 
 }
 
-Adafruit_NeoPixel pixels(NEOPIXELS_NUM, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
+Adafruit_NeoPixel pixels(NEOPIXELS_SIZE, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
 
 LiquidCrystal_I2C lcd(0x20,16,2);
 
@@ -56,6 +55,7 @@ void setup()
 
   //Configuration de l'écran LCD I2C
   lcd.init();
+  lcd.begin(16, 2);
   lcd.backlight();
   
   //Configuration de la bande NeoPixels
@@ -146,11 +146,11 @@ void loop()
   //équivalant à U = value * (Ualimentation / 1023.0)
   float voltage = value * VOLTS_PER_STEP;
   float temperature = (voltage - 0.5) * 100.0;
-	
-  lcd.clear();
-  lcd.print(temperature);
   
   handle_temperature(temperature);
   
+  lcd.clear();
+  lcd.print(temperature);
+
   delay(1000);
 }
