@@ -8,7 +8,6 @@
 #include <LiquidCrystal.h>
 #include <LiquidCrystal_I2C.h>
 #include <Adafruit_NeoPixel.h>
-#include <array.h>
 #include <math.h>
 
 constexpr uint8_t TMP_PIN = A0;
@@ -23,15 +22,14 @@ constexpr uint8_t FAN_MIN_SPEED = 0;
 constexpr uint8_t FAN_MAX_SPEED = 0;
 
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
-constexpr std::array<rgb, 6> colors[6][3] {{
+constexpr rgb colors[6] {
 	{0, 0, 175},    // Bleu clair - <15°C
     {0, 0, 255},    // Bleu foncé - <25°C
     {255, 255, 100},// Jaune - <40°C
     {255, 140, 0},  // Orange - <55°C
     {255, 0, 0},    // Rouge - <71°C
     {255, 0, 0}     // Alerte
-
-}};
+};
 
 struct rgb {
 	uint8_t r, g, b;
