@@ -30,7 +30,7 @@ const uint8_t COLORS_TABLE[6][3] = {
     {255, 0, 0},    // Rouge - <71°C
     {255, 0, 0}     // Alerte
 
-}
+};
 
 Adafruit_NeoPixel pixels(NEOPIXELS_SIZE, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
 
@@ -124,7 +124,7 @@ void setColor(int red, int green, int blue) {
 }
 
 void setPixelsColor(int red, int green, int blue) {
-  for (int i = NEOPIXELS_NUM; i >= 0; --i) {
+  for (int i = NEOPIXELS_SIZE; i >= 0; --i) {
     const int color = pixels.Color(red, green, blue);
   	pixels.setPixelColor(i, color);
 
