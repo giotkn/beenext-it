@@ -20,8 +20,11 @@ constexpr uint8_t NEOPIXELS_SIZE = 4;
 constexpr uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes)
 constexpr uint8_t FAN_MIN_SPEED = 0;
 constexpr uint8_t FAN_MAX_SPEED = 0;
-
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
+
+struct rgb {
+	uint8_t r, g, b;
+};
 constexpr rgb colors[6] {
 	{0, 0, 175},    // Bleu clair - <15°C
     {0, 0, 255},    // Bleu foncé - <25°C
@@ -29,10 +32,6 @@ constexpr rgb colors[6] {
     {255, 140, 0},  // Orange - <55°C
     {255, 0, 0},    // Rouge - <71°C
     {255, 0, 0}     // Alerte
-};
-
-struct rgb {
-	uint8_t r, g, b;
 };
 
 bool ECO_MODE = 0;
