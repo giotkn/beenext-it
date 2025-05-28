@@ -14,14 +14,8 @@ const uint8_t RGB_RED_PIN = 5;
 const uint8_t RGB_GREEN_PIN = 6;
 const uint8_t RGB_BLUE_PIN = 7;
 const uint8_t NEOPIXELS_PIN = 2;
-
 const uint8_t NEOPIXELS_SIZE = 4;
-const uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes) 
-
-uint16_t VATILATORS_SPEED = STD_SPEED; //Fan = 
-
-constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
-
+const uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes)
 const uint8_t COLORS_TABLE[6][3] = {
 	{0, 0, 175},    // Bleu clair - <15°C
     {0, 0, 255},    // Bleu foncé - <25°C
@@ -32,16 +26,15 @@ const uint8_t COLORS_TABLE[6][3] = {
 
 };
 
+constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
+
+uint16_t VATILATORS_SPEED = STD_SPEED; //Fan = 
+
 Adafruit_NeoPixel pixels(NEOPIXELS_SIZE, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
-
 LiquidCrystal_I2C lcd(0x20,16,2);
-
-//TODO: implementer avec une table
-// Servo vents[3]
 Servo vent_1, vent_2, vent_3;
 
-void setup()
-{
+void setup() {
   //Mise en marche des ventilateurs
   //Mise en marche des capteurs thermiques
   	
@@ -113,7 +106,11 @@ void setSpeed(float temperature) {
     vent_3.write(speed);
 }
 
-void setColor(int red, int green, int blue) {
+void setColor(
+    int red, 
+    int green, 
+    int blue
+) {
   setPixelsColor(red, green, blue);
 
   //TODO: Optimisation (native) https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/
@@ -123,7 +120,11 @@ void setColor(int red, int green, int blue) {
   analogWrite(RGB_BLUE_PIN, blue);
 }
 
-void setPixelsColor(int red, int green, int blue) {
+void setPixelsColor(
+    int red, 
+    int green, 
+    int blue
+) {
   for (int i = NEOPIXELS_SIZE; i >= 0; --i) {
     const int color = pixels.Color(red, green, blue);
   	pixels.setPixelColor(i, color);
@@ -132,8 +133,7 @@ void setPixelsColor(int red, int green, int blue) {
   pixels.show();
 }
 
-void loop()
-{	
+void loop() {	
   //Methode pour obtenir la valeur du point annalogique A0
   //A l'occurence, le capteur de chaleur
   int value = analogRead(TMP_PIN);
