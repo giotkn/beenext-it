@@ -20,6 +20,8 @@ constexpr uint8_t NEOPIXELS_SIZE = 4;
 constexpr uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes)
 constexpr uint8_t FAN_MIN_SPEED = 0;
 constexpr uint8_t FAN_MAX_SPEED = 0;
+constexpr uint8_t TEMP_ALERT_THRESHOLD = 71;
+
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
 
 struct rgb {
@@ -35,7 +37,7 @@ constexpr rgb colors[6] {
 };
 
 bool ECO_MODE = 0;
-uint16_t VATILATORS_SPEED = STD_SPEED; //Fan = 
+uint16_t VATILATORS_SPEED = STD_SPEED;
 
 Adafruit_NeoPixel pixels(NEOPIXELS_SIZE, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
 LiquidCrystal_I2C lcd(0x20,16,2);
@@ -54,7 +56,8 @@ void setup() {
   //Configuration de l'écran LCD I2C
   lcd.init();
   lcd.begin(16, 2);
-  lcd.backlight();
+  lcd.setCursor(0, 0);
+  lcd.backlight(); //Utiliser lcd.noBlacklight(); si le mode economie d'énergie est activé
   
   //Configuration de la bande NeoPixels
   pixels.begin();
@@ -72,14 +75,25 @@ void setup() {
   vents[2].attach(11);
 }
 
-void loop() {	
-  float temperature = readTensor();
-  handleTemperature(temperature);
-  
-  lcd.clear();
-  lcd.print(temperature);
+void loop() {
+  if(ECO_MODE) {
+    lcd.noBlacklight();
+    log("Mode économie d'énergiej'")
+  } else {
+    lcd.blacklight();
+  }
 
+  float t = readTensor();
+  handleTemperature(t);
+  display(t);
   delay(1000);
+}
+
+void log(const &String m) { }
+
+void display(float temp) {
+    lcd.clear();
+    lcd.print(temp);
 }
 
 float readTensor() {
@@ -126,8 +140,8 @@ void handleTemperature(float temperature)
     delay(5000);
     
     //Arrêt d'urgence
-    Serial.print("Boum");
-	//exit(0);
+    log("Boum");
+	exit(0);
   }
 }
 
