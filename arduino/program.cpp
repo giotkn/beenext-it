@@ -4,6 +4,9 @@
 //La LED RGB doit être configuré sur RCBG
 //L'écran l2c sur pcf8574-based
 
+//https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/ 
+
+
 #include <Servo.h>
 #include <LiquidCrystal.h>
 #include <LiquidCrystal_I2C.h>
@@ -13,13 +16,12 @@
 constexpr uint8_t TMP_PIN = A0;
 constexpr uint8_t RGB_RED_PIN = 5;
 constexpr uint8_t RGB_GREEN_PIN = 6;
-constexpr uint8_t RGB_BLUE_PIN = 7;
+constexpr uint8_t RGB_BLUE_PIN = 9;
 constexpr uint8_t NEOPIXELS_PIN = 2;
 constexpr uint8_t NEOPIXELS_SIZE = 4;
-
 constexpr uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contraintes)
 constexpr uint8_t FAN_MIN_SPEED = 0;
-constexpr uint8_t FAN_MAX_SPEED = 0;
+constexpr uint8_t FAN_MAX_SPEED = 100;
 constexpr uint8_t TEMP_ALERT_THRESHOLD = 71;
 constexpr uint8_t LCD_REFRESH_INTERVAL = 1000;
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
@@ -53,6 +55,31 @@ void setup() {
   Serial.begin(115200);
   while(!Serial);
 
+  //Setup bas niveau (contrôle des PWM nativement)
+  
+  cli(); //(cli => Clear Interrupts) Désactivation des interuptions, arrêt des programmes en arrière plan pour une configuration bas niveau
+
+  //Attribution dew LEDs aux différents PIN
+  pinMode(RGB_RED_PIN, OUTPUT);
+  pinMode(RGB_GREEN_PIN, OUTPUT);
+  pinMode(RGB_BLUE_PIN, OUTPUT);
+  
+  TCCR0A = (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00);
+  TCCR0B = (1 << CS01) | (1 << CS00);
+
+  TCCR1A = (1 << COM1A1) | (1 << WGM10);
+  TCCR1B = (1 << WGM12) | (1 << CS11) | (1 << CS10);
+
+  sei(); //Sauvegarde et fermeture des modifications
+
+		//Debut du mode économie d'énergie
+		if(ECO_MODE) {
+    lcd.noBlacklight();
+    Logger::log("Mode économie d'énergie activé'");
+  } else {
+    lcd.blacklight();
+  }
+
   //Configuration de l'écran LCD I2C
   lcd.init();
   lcd.begin(16, 2);
@@ -62,12 +89,7 @@ void setup() {
   //Configuration de la bande NeoPixels
   pixels.begin();
   pixels.show();
-
-  //Attribution dew LEDs aux différents PIN
-  pinMode(RGB_RED_PIN, OUTPUT);
-  pinMode(RGB_GREEN_PIN, OUTPUT);
-  pinMode(RGB_BLUE_PIN, OUTPUT);
-  
+	
   //Attribution des "ventilateurs" (ici des servomoteur)
   //aux points d'attaches 13, 12 et 11. 
   vents[0].attach(13);
@@ -78,13 +100,6 @@ void setup() {
 }
 
 void loop() {
-  if(ECO_MODE) {
-    lcd.noBlacklight();
-    log("Mode économie d'énergiej'")
-  } else {
-    lcd.blacklight();
-  }
-
   float t = readTensor();
   handleTemperature(t);
   display(t);
@@ -117,10 +132,7 @@ float readTensor() {
   //A l'occurence, le capteur de chaleur
   int value = analogRead(TMP_PIN);
   
-  //Arduino supporte des messages de 10 bits
-  //Pouvant donc produire 1024 valeurs différentes (0 à 1023)
-  //Arduino fonctionne avec une alimentation de 5V
-  
+  //Arduino supporte des messages de 10 bits, pouvant donc produire 1024 valeurs différentes (0 à 1023)
   //U = (Valeur / 1023) x Ualimentation. Où Ualimentation = 5.0 V
   //équivalant à U = value * (Ualimentation / 1023.0)
 
@@ -156,8 +168,8 @@ void handleTemperature(float temperature)
     delay(5000);
     
     //Arrêt d'urgence
-    log("Boum");
-	exit(0);
+    Logger::warning("Boum");
+				exit(0);
   }
 }
 
@@ -170,18 +182,17 @@ void setSpeed(float temp) {
 }
 
 void setColor(int red, int green, int blue) {
-  setPixelsColor(red, green, blue);
+  //Optimisation (native) https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/
+  OCR0B = red;
+  OCR0A = green;
+  OCR1A = blue; 
 
-  //TODO: Optimisation (native) https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/
-  analogWrite(RGB_RED_PIN, red);
-  analogWrite(RGB_GREEN_PIN, green);
-  analogWrite(RGB_BLUE_PIN, blue);
+  setPixelsColor(red, green, blue);
 }
 
 void setPixelsColor(int red, int green, int blue) {
-  for (int i = 0; NEOPIXELS_SIZE > i; ++i) {
-    const int color = pixels.Color(red, green, blue);
-  	pixels.setPixelColor(i, color);
-  }
+  const int color = pixels.Color(red, green, blue);
+  for (int i = 0; NEOPIXELS_SIZE > i; ++i)
+				pixels.setPixelColor(i, color);
   pixels.show();
 }
