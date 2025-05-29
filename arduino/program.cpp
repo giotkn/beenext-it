@@ -21,7 +21,7 @@ constexpr uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contr
 constexpr uint8_t FAN_MIN_SPEED = 0;
 constexpr uint8_t FAN_MAX_SPEED = 0;
 constexpr uint8_t TEMP_ALERT_THRESHOLD = 71;
-
+constexpr uint8_t LCD_REFRESH_INTERVAL = 1000;
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
 
 struct rgb {
@@ -73,6 +73,8 @@ void setup() {
   vents[0].attach(13);
   vents[1].attach(12);
   vents[2].attach(11);
+
+  setSpeed(STD_SPEED);
 }
 
 void loop() {
@@ -89,12 +91,26 @@ void loop() {
   delay(1000);
 }
 
-void log(const &String m) { }
+class Logger {
+public:
+    static void log(const String& m) {
+        Serial.print("[Log]");
+		Serial.print();
+        Serial.println(m);
+    }
+    
+    static void warning(const String& m) {
+        Serial.print("[Warning] ");
+		Serial.print();
+        Serial.println(m);
+    }
 
-void display(float temp) {
-    lcd.clear();
-    lcd.print(temp);
-}
+	static void display(float temp) {
+	    lcd.clear();
+	    lcd.print(temp);
+	}
+};
+
 
 float readTensor() {
 //Methode pour obtenir la valeur du point annalogique A0
@@ -146,7 +162,7 @@ void handleTemperature(float temperature)
 }
 
 void setSpeed(float temp) {
-    int speed = map(temp, 0, 70, 0, 180);
+    int speed = constrains(map(temp, 0, 70, 0, 180), FAN_MIN_SPEED, FAN_MAX_SPEED);
 
     for (auto& vent : vents) {
         vent.write(speed);
