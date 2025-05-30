@@ -72,20 +72,18 @@ void setup() {
 
   sei(); //Sauvegarde et fermeture des modifications
 
-		//Debut du mode économie d'énergie
+  //Configuration de l'écran LCD I2C
+  lcd.init();
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  
+  //Debut du mode économie d'énergie
 		if(ECO_MODE) {
     lcd.noBlacklight();
     Logger::log("Mode économie d'énergie activé'");
   } else {
     lcd.blacklight();
   }
-
-  //Configuration de l'écran LCD I2C
-  lcd.init();
-  lcd.begin(16, 2);
-  lcd.setCursor(0, 0);
-  lcd.backlight(); //Utiliser lcd.noBlacklight(); si le mode economie d'énergie est activé
-  
   //Configuration de la bande NeoPixels
   pixels.begin();
   pixels.show();
