@@ -2,10 +2,7 @@
 
 //Notes (Tinkercad): 
 //La LED RGB doit être configuré sur RCBG
-//L'écran l2c sur pcf8574-based
-
-//https://docs.arduino.cc/tutorials/generic/secrets-of-arduino-pwm/ 
-
+//L'écran l2c sur pcf8574-based 
 
 #include <Servo.h>
 #include <LiquidCrystal.h>
@@ -30,7 +27,7 @@ struct rgb {
 	uint8_t r, g, b;
 };
 constexpr rgb colors[6] {
-	{0, 0, 175},    // Bleu clair - <15°C
+				{0, 0, 175},    // Bleu clair - <15°C
     {0, 0, 255},    // Bleu foncé - <25°C
     {255, 255, 100},// Jaune - <40°C
     {255, 140, 0},  // Orange - <55°C
@@ -48,18 +45,16 @@ Servo vents[3];
 void setup() {
   //Mise en marche des ventilateurs
   //Mise en marche des capteurs thermiques
-  	
   //Ici, ce n'est pas nécessaire :
   //Les ventilateurs/capteurs thermiques sont mis en marche automatiquement
-  
-  Serial.begin(115200);
+	 
+		Serial.begin(115200);
   while(!Serial);
 
   //Setup bas niveau (contrôle des PWM nativement)
-  
   cli(); //(cli => Clear Interrupts) Désactivation des interuptions, arrêt des programmes en arrière plan pour une configuration bas niveau
 
-  //Attribution dew LEDs aux différents PIN
+  //Attribution des LEDs aux différents PIN
   pinMode(RGB_RED_PIN, OUTPUT);
   pinMode(RGB_GREEN_PIN, OUTPUT);
   pinMode(RGB_BLUE_PIN, OUTPUT);
@@ -76,15 +71,16 @@ void setup() {
   lcd.init();
   lcd.begin(16, 2);
   lcd.setCursor(0, 0);
-  
-  //Debut du mode économie d'énergie
+
+  //Mode économie d'énergie (simplifié)
 		if(ECO_MODE) {
     lcd.noBlacklight();
     Logger::log("Mode économie d'énergie activé'");
   } else {
     lcd.blacklight();
   }
-  //Configuration de la bande NeoPixels
+
+  //Configuration de la bande NeoPixels RGB
   pixels.begin();
   pixels.show();
 	
@@ -100,6 +96,7 @@ void setup() {
 void loop() {
   float t = readTensor();
   handleTemperature(t);
+		setSpeed(t);
   display(t);
   delay(1000);
 }
@@ -108,20 +105,20 @@ class Logger {
 public:
     static void log(const String& m) {
         Serial.print("[Log]");
-		Serial.print();
+		      Serial.print();
         Serial.println(m);
     }
     
     static void warning(const String& m) {
         Serial.print("[Warning] ");
-		Serial.print();
+		      Serial.print();
         Serial.println(m);
     }
 
-	static void display(float temp) {
-	    lcd.clear();
-	    lcd.print(temp);
-	}
+	   static void display(float temp) {
+	       lcd.clear();
+	       lcd.print(temp);
+	   }
 };
 
 
@@ -172,7 +169,7 @@ void handleTemperature(float temperature)
 }
 
 void setSpeed(float temp) {
-    int speed = constrains(map(temp, 0, 70, 0, 180), FAN_MIN_SPEED, FAN_MAX_SPEED);
+    const int speed = constrains(map(temp, 0, 70, 0, 180), FAN_MIN_SPEED, FAN_MAX_SPEED);
 
     for (auto& vent : vents) {
         vent.write(speed);
