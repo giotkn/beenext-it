@@ -20,8 +20,9 @@ constexpr uint8_t STD_SPEED = 100; //Vitesse du ventilateur standard (sans contr
 constexpr uint8_t FAN_MIN_SPEED = 0;
 constexpr uint8_t FAN_MAX_SPEED = 100;
 constexpr uint8_t TEMP_ALERT_THRESHOLD = 71;
-constexpr uint8_t LCD_REFRESH_INTERVAL = 1000;
+constexpr uint16_t LCD_REFRESH_INTERVAL = 1000;
 constexpr float VOLTS_PER_STEP = 0.5 / 1023.0;
+constexpr bool ECO_MODE = true;
 
 struct rgb {
 	uint8_t r, g, b;
@@ -32,11 +33,13 @@ constexpr rgb colors[6] {
     {255, 255, 100},// Jaune - <40°C
     {255, 140, 0},  // Orange - <55°C
     {255, 0, 0},    // Rouge - <71°C
-    {255, 0, 0}     // Alerte
+    {255, 0, 0}     // Rouge (clignotement) - Alerte
 };
 
-bool ECO_MODE = 0;
+//Cache variables
 uint16_t VATILATORS_SPEED = STD_SPEED;
+float TEMPERATURE = -100;
+unsigned long LCD_UPDATE = 0;
 
 Adafruit_NeoPixel pixels(NEOPIXELS_SIZE, NEOPIXELS_PIN, NEO_RGB + NEO_KHZ800);
 LiquidCrystal_I2C lcd(0x20,16,2);
@@ -95,24 +98,54 @@ void setup() {
 
 void loop() {
   float t = readTensor();
-  handleTemperature(t);
+
+  if(t < 0) {
+    return;
+  }
+
+		if(abs(t - TEMPERATURE) < 0.5) return;
+
+	 if(t > TEMP_ALERT_THRESHOLD) {
+				//Si la température dépasse 71, déclenche un clignotement
+    for (int clignotement = 5; clignotement > 0; --clignotement) {
+       setColor(255, 0, 0); //Rouge
+      	delay(500);
+      	setColor(0, 0, 0);
+      	delay(500);
+    }
+    //Arrêt d'urgence
+    Logger::warning("Boum");
+				exit(0);
+		}
+
+  const rgb color = t <= 15
+				? colors[0]
+				: t <= 25 
+						? colors[1] 
+						: t <= 40 
+								? colors[2]
+								: t <= 55 
+										? colors[3]
+										: colors[4];
+	
+		setColor(color[0], color[1], color[2]);
 		setSpeed(t);
-  display(t);
-  delay(1000);
+
+		if (millis() - LCD_UPDATE >= LCD_REFRESH_INTERVAL) {
+				Logger::display(t);
+		}
+
+  delay(ECO_MODE ? 2000 : 1000);
 }
 
 class Logger {
 public:
     static void log(const String& m) {
-        Serial.print("[Log]");
-		      Serial.print();
-        Serial.println(m);
+        Serial.println("[Log]" + m);
     }
     
     static void warning(const String& m) {
-        Serial.print("[Warning] ");
-		      Serial.print();
-        Serial.println(m);
+        Serial.println("[Warning] " + m);
     }
 
 	   static void display(float temp) {
@@ -135,41 +168,8 @@ float readTensor() {
   return (voltage - 0.5) * 100.0;
 }
 
-void handleTemperature(float temperature)
-{
-  if(temperature < 0) {
-    return;
-  }
-
-  if(temperature <= 15.0) {
-    setColor(0, 0, 175); //Bleu clair
-  } else if(temperature <= 25.0) {
-    setColor(0, 0, 255); //Bleu foncé
-  } else if(temperature <= 40.0) {
-   	setColor(255, 255, 100); //Jaune
-  } else if(temperature <= 55.0) {
-    setColor(255, 140, 0); //Orange
-  } else if(temperature <= 71) {
-    setColor(255, 0, 0); //Rouge
-  } else {
-   	//Si la température dépasse 71, déclenche un clignotement
-    for (int clignotement = 5; clignotement > 0; --clignotement) {
-        setColor(255, 0, 0); //Rouge
-      	delay(500);
-      	setColor(0, 0, 0);
-      	delay(500);
-    }
-
-    delay(5000);
-    
-    //Arrêt d'urgence
-    Logger::warning("Boum");
-				exit(0);
-  }
-}
-
 void setSpeed(float temp) {
-    const int speed = constrains(map(temp, 0, 70, 0, 180), FAN_MIN_SPEED, FAN_MAX_SPEED);
+    const int speed = constrains(map(temp, 0, TEMP_ALERT_THRESHOLD, 0, 180), FAN_MIN_SPEED, FAN_MAX_SPEED);
 
     for (auto& vent : vents) {
         vent.write(speed);
