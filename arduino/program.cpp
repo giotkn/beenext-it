@@ -11,6 +11,7 @@
 #include <math.h>
 
 constexpr uint8_t TMP_PIN = A0;
+constexpr uint8_t VENT12V_PIN = A0;
 constexpr uint8_t RGB_RED_PIN = 5;
 constexpr uint8_t RGB_GREEN_PIN = 6;
 constexpr uint8_t RGB_BLUE_PIN = 9;
