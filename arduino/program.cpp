@@ -62,7 +62,8 @@ void setup() {
   pinMode(RGB_RED_PIN, OUTPUT);
   pinMode(RGB_GREEN_PIN, OUTPUT);
   pinMode(RGB_BLUE_PIN, OUTPUT);
-  
+  pinMode(VENT12V_PIN, OUTPUT);
+
   TCCR0A = (1 << COM0A1) | (1 << COM0B1) | (1 << WGM01) | (1 << WGM00);
   TCCR0B = (1 << CS01) | (1 << CS00);
 
@@ -119,15 +120,12 @@ void loop() {
 				exit(0);
 		}
 
-  const rgb color = t <= 15
-				? colors[0]
-				: t <= 25 
-						? colors[1] 
-						: t <= 40 
-								? colors[2]
-								: t <= 55 
-										? colors[3]
-										: colors[4];
+  const rgb color =
+    t <= 15 ? colors[0] :
+    t <= 25 ? colors[1] :
+    t <= 40 ? colors[2] :
+    t <= 55 ? colors[3] :
+                 colors[4];
 	
 		setColor(color[0], color[1], color[2]);
 		setSpeed(t);
