@@ -1,0 +1,660 @@
+.app,
+.app * {
+  box-sizing: border-box;
+}
+.app {
+  height: 813px;
+  position: relative;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: white;
+  scroll-behavior: smooth;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-bottom: 1px solid #ccc;
+}
+
+.nav-link {
+  cursor: pointer;
+  font-size: 20px;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ff6b6b;
+}
+
+.march {
+  background: #ffffff;
+  width: 1440px;
+  height: 925px;
+  position: absolute;
+  left: 0px;
+  top: 4662px;
+  overflow: hidden;
+}
+.div {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 561px);
+  top: 108px;
+  width: 404px;
+  height: 51px;
+}
+.bee-next-s-adresse-essentiellement-aux-gamers-et-aux-professionnels-d-intelligence-artificielle-en-effet-la-carte-graphique-nvidia-jetson-super-nano-est-une-carte-tr-s-populaire-pour-la-propulsion-de-syst-me-int-gr-avec-de-l-ia {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 897px;
+  top: 262px;
+  width: 485px;
+  height: 635px;
+}
+.successful-man-working-data-center-my-occupation-intelligent-young-worker-holding-his-laptop-working-data-center-114119161-1717873830-1 {
+  width: 922.85px;
+  height: 616px;
+  position: absolute;
+  left: -89px;
+  top: 239px;
+  object-fit: cover;
+  aspect-ratio: 922.85/616;
+}
+.techno {
+  background: #ffffff;
+  width: 1440px;
+  height: 780px;
+  position: absolute;
+  left: 0px;
+  top: 3882px;
+  overflow: hidden;
+}
+.on-shape-logiciel-de-mod-lisation-3-d-en-ligne-tinkercad-logiciel-de-cr-ation-et-simulation-de-circuits-cloud-flare-plateforme-d-h-bergement-vps-workers-etc-sp-cialis-e-dans-la-protection-anti-ddos-figma-logiciel-de-maquette-design-ui-interface-utilisateur-et-ux-experience-utilisateur-visual-studio-visual-studio-code-ide-collaboratif {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  left: 487px;
+  top: 218px;
+  width: 742px;
+  height: 469px;
+}
+.technologies {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 572px);
+  top: 101px;
+  width: 375px;
+  height: 51px;
+}
+.images {
+  position: absolute;
+  inset: 0;
+}
+.shape {
+  width: 190.85px;
+  height: 92px;
+  position: absolute;
+  left: 193px;
+  top: 197px;
+  object-fit: cover;
+  aspect-ratio: 190.85/92;
+}
+.cloud {
+  width: 229px;
+  height: 73px;
+  position: absolute;
+  left: 173px;
+  top: 410px;
+  object-fit: cover;
+  aspect-ratio: 229/73;
+}
+.tink {
+  width: 238.28px;
+  height: 78px;
+  position: absolute;
+  left: 192px;
+  top: 312px;
+  object-fit: cover;
+  aspect-ratio: 238.28/78;
+}
+.fig {
+  width: 192.27px;
+  height: 96px;
+  position: absolute;
+  left: 192px;
+  top: 502px;
+  object-fit: cover;
+  aspect-ratio: 192.27/96;
+}
+.arduino {
+  width: 147.83px;
+  height: 100px;
+  position: absolute;
+  left: 192px;
+  top: 550px;
+  aspect-ratio: 147.83/100;
+}
+.vscode {
+  width: 263px;
+  height: 75px;
+  position: absolute;
+  left: 192px;
+  top: 612px;
+  object-fit: cover;
+  aspect-ratio: 263/75;
+}
+.ekip {
+  background: #ffffff;
+  width: 1440px;
+  height: 1028px;
+  position: absolute;
+  left: 0px;
+  top: 2860px;
+  overflow: hidden;
+}
+.team {
+  display: flex;
+  flex-direction: row;
+  gap: 92px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 634px;
+  position: absolute;
+  left: 70px;
+  top: 220px;
+}
+.fajr {
+  flex-shrink: 0;
+  width: 255px;
+  height: 510px;
+  position: static;
+}
+.description {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  right: 1044px;
+  top: 446px;
+  width: 255px;
+}
+.name {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 82px;
+  top: 384px;
+  width: 79px;
+  height: 46px;
+}
+.fajr2 {
+  width: 243.45px;
+  height: 365.17px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  object-fit: cover;
+  aspect-ratio: 243.45/365.17;
+}
+.dan {
+  flex-shrink: 0;
+  width: 255px;
+  height: 481px;
+  position: static;
+}
+.description2 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  right: 697px;
+  top: 449px;
+  width: 255px;
+}
+.name2 {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 36px;
+  font-weight: 400;
+  position: absolute;
+  left: 434px;
+  top: 384px;
+  width: 82px;
+  height: 46px;
+}
+.dan2 {
+  width: 243.32px;
+  height: 365.17px;
+  position: absolute;
+  left: 353px;
+  top: 0px;
+  object-fit: cover;
+  aspect-ratio: 243.32/365.17;
+}
+.guilhem {
+  flex-shrink: 0;
+  width: 258px;
+  height: 510px;
+  position: static;
+}
+.description3 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  right: 347px;
+  top: 446px;
+  width: 255px;
+}
+.name3 {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 752px;
+  top: 380px;
+  width: 145px;
+  height: 46px;
+}
+.guilhem2 {
+  width: 243.32px;
+  height: 365.17px;
+  position: absolute;
+  left: 694px;
+  top: 0px;
+  object-fit: cover;
+  aspect-ratio: 243.32/365.17;
+}
+.tristan {
+  flex-shrink: 0;
+  width: 255px;
+  height: 557px;
+  position: static;
+}
+.description4 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  right: 0px;
+  top: 449px;
+  width: 255px;
+  height: 108px;
+}
+.name4 {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  position: absolute;
+  left: 1100px;
+  top: 386px;
+  width: 144px;
+  height: 53px;
+}
+.image {
+  width: 242.54px;
+  height: 364px;
+  position: absolute;
+  left: 1050.46px;
+  top: 0px;
+  object-fit: cover;
+  aspect-ratio: 242.54/364;
+}
+.notre-quipe-est-compos-e-de-4-l-ves-de-premi-re-sti-2-d-1-ensemble-ils-regroupent-les-comp-tences-n-cessaires-pour-le-bien-du-projet-montage-vid-o-ing-neurie-d-veloppement-cablage-gestion-de-projet-design {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  left: 88px;
+  top: 797px;
+  width: 728px;
+  height: 160px;
+}
+.l-quipe {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 582px);
+  top: 92px;
+  width: 279px;
+  height: 51px;
+}
+.pr-sentation {
+  background: #ffffff;
+  width: 1440px;
+  height: 2042px;
+  position: absolute;
+  left: 0px;
+  top: 833px;
+  overflow: hidden;
+}
+.avantages-atouts {
+  color: #000000;
+  text-align: left;
+  position: absolute;
+  left: 195px;
+  top: -1108px;
+  width: 446px;
+  height: 211px;
+}
+.avantages-atouts-span {
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+}
+.avantages-atouts-span2 {
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+}
+.pourquoi-nous {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 586px);
+  top: 1322px;
+  width: 395px;
+  height: 51px;
+}
+.rectangle-3 {
+  width: 1171px;
+  height: 471px;
+  position: absolute;
+  left: 134px;
+  top: 1438px;
+  overflow: visible;
+}
+.rectangle-2 {
+  width: 747px;
+  height: 436px;
+  position: absolute;
+  left: 33px;
+  top: 208px;
+  overflow: visible;
+}
+.beenext-est-un-projet-collaboratif-visant-repenser-le-design-industriel-des-bo-tiers-informatiques-en-s-inspirant-de-la-nature-gr-ce-au-biomim-tisme-nous-avons-d-velopp-un-bo-tier-modulaire-l-ger-performant-thermiquement-et-esth-tique-innovation-un-design-minimaliste-et-pur-inspir-de-la-nature-pens-pour-optimiser-l-utilisation-des-plus-populaires-des-cartes-graphiques-en-effet-bee-next-offre-une-int-gration-native-et-optimis-pour-la-carte-graphique-nvidia-jet-son-super-nano-inspiration-bio-organique-nous-nous-sommes-explicitement-inspir-de-la-nature-pour-r-aliser-ce-projet-en-effet-la-ruche-poss-de-des-caract-risques-isolantes-optimales-pour-la-r-pertition-de-chaleur {
+  color: #000000;
+  text-align: left;
+  font-family: "-", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 842px;
+  top: 208px;
+  width: 511px;
+  height: 436px;
+}
+.beenext-est-un-projet-collaboratif-visant-repenser-le-design-industriel-des-bo-tiers-informatiques-en-s-inspirant-de-la-nature-gr-ce-au-biomim-tisme-nous-avons-d-velopp-un-bo-tier-modulaire-l-ger-performant-thermiquement-et-esth-tique-innovation-un-design-minimaliste-et-pur-inspir-de-la-nature-pens-pour-optimiser-l-utilisation-des-plus-populaires-des-cartes-graphiques-en-effet-bee-next-offre-une-int-gration-native-et-optimis-pour-la-carte-graphique-nvidia-jet-son-super-nano-inspiration-bio-organique-nous-nous-sommes-explicitement-inspir-de-la-nature-pour-r-aliser-ce-projet-en-effet-la-ruche-poss-de-des-caract-risques-isolantes-optimales-pour-la-r-pertition-de-chaleur-span {
+  font-family: "JetBrainsMono-Regular", sans-serif;
+}
+.beenext-est-un-projet-collaboratif-visant-repenser-le-design-industriel-des-bo-tiers-informatiques-en-s-inspirant-de-la-nature-gr-ce-au-biomim-tisme-nous-avons-d-velopp-un-bo-tier-modulaire-l-ger-performant-thermiquement-et-esth-tique-innovation-un-design-minimaliste-et-pur-inspir-de-la-nature-pens-pour-optimiser-l-utilisation-des-plus-populaires-des-cartes-graphiques-en-effet-bee-next-offre-une-int-gration-native-et-optimis-pour-la-carte-graphique-nvidia-jet-son-super-nano-inspiration-bio-organique-nous-nous-sommes-explicitement-inspir-de-la-nature-pour-r-aliser-ce-projet-en-effet-la-ruche-poss-de-des-caract-risques-isolantes-optimales-pour-la-r-pertition-de-chaleur-span2 {
+  font-family: "JetBrainsMono-Italic", sans-serif;
+  font-style: italic;
+}
+.pr-sentation-du-projet {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  position: absolute;
+  left: calc(50% - 592px);
+  top: 85px;
+  width: 602px;
+  height: 51px;
+}
+.accueil {
+  background: #ffffff;
+  width: 1440px;
+  height: 843px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  overflow: hidden;
+}
+.accueil2 {
+  background: var(
+    --beenext,
+    linear-gradient(
+      180deg,
+      rgba(255, 176, 29, 0.38) 43.75%,
+      rgba(255, 148, 55, 0.38) 75.4807710647583%
+    )
+  );
+  width: 1440px;
+  height: 733px;
+  position: absolute;
+  left: 1px;
+  top: 80px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  overflow: auto;
+}
+.pens-pour-vous-plaire {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: absolute;
+  left: 1075px;
+  top: 44px;
+  width: 334px;
+  height: 42px;
+}
+.bee-next {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  position: absolute;
+  left: 55px;
+  top: 44px;
+  width: 205px;
+  height: 66px;
+}
+.bee-next2 {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  position: absolute;
+  left: 55px;
+  top: 320px;
+  width: 324px;
+  height: 100px;
+}
+.nouvelle-g-n-ration-de-boitiers-optimis-s-pour-l-inteligence-artificielle {
+  color: #000000;
+  text-align: left;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: absolute;
+  left: 55px;
+  top: 408px;
+  width: 528px;
+  height: 65px;
+}
+.prototypes {
+  width: 852px;
+  height: 321px;
+  position: static;
+}
+.image-removebg-preview-1 {
+  width: 343.14px;
+  height: 321px;
+  position: absolute;
+  left: 257px;
+  top: 1730px;
+  object-fit: cover;
+  aspect-ratio: 343.14/321;
+}
+.image-removebg-preview-1-1 {
+  width: 351px;
+  height: 286px;
+  position: absolute;
+  left: 758px;
+  top: 1748px;
+  object-fit: cover;
+  aspect-ratio: 351/286;
+}
+.logo {
+  width: 348px;
+  height: 329px;
+  position: static;
+}
+.bee-3 {
+  width: 225px;
+  height: 225px;
+  position: absolute;
+  left: 933px;
+  top: 333px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.bee-2 {
+  width: 162px;
+  height: 162px;
+  position: absolute;
+  left: 913px;
+  top: 500px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.bee-1 {
+  width: 153px;
+  height: 153px;
+  position: absolute;
+  left: 1108px;
+  top: 452px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.bar {
+  position: absolute;
+  inset: 0;
+}
+.rectangle-1 {
+  width: 1440px;
+  height: 80px;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  top: 0px;
+  overflow: visible;
+}
+.frame-1 {
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  width: 802px;
+  height: 40px;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  top: 22px;
+}
+.accueil3 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+}
+.pr-sentation2 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+  width: 200px;
+}
+.equipe {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+}
+.technologies2 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+}
+.march2 {
+  color: #000000;
+  text-align: center;
+  font-family: "JetBrainsMono-Regular", sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  position: relative;
+}
