@@ -123,19 +123,6 @@ void loop() {
   }
 
   if(abs(t - TEMPERATURE) < 0.5) return;
-  if(t > TEMP_ALERT_THRESHOLD) {
-	//Si la température dépasse 71, déclenche un clignotement
-    for (int clignotement = 5; clignotement > 0; --clignotement) {
-      setColor(255, 0, 0); //Rouge
-      delay(500);
-      setColor(0, 0, 0);
-      delay(500);
-    }
-  
-    //Arrêt d'urgence
-    Logger::warning("Boum");
-	exit(0);
-   }
 
   const rgb color =
     t <= 15
@@ -151,6 +138,23 @@ void loop() {
   setColor(color.r, color.g, color.b);
   setSpeed(t);
   Logger::display(t);
+  
+  
+  if(t > TEMP_ALERT_THRESHOLD) {
+	//Si la température dépasse 71, déclenche un clignotement
+    for (int clignotement = 5; clignotement > 0; --clignotement) {
+      setColor(255, 0, 0); //Rouge
+      delay(500);
+      setColor(0, 0, 0);
+      delay(500);
+    }
+  
+    //Arrêt d'urgence
+    Logger::warning("Boum");
+	exit(0);
+  }
+  
+  
   delay(ECO_MODE ? 2000 : 1000);
 }
 
@@ -191,7 +195,8 @@ void setColor(uint8_t red, uint8_t green, uint8_t blue) {
 
 void setPixelsColor(int red, int green, int blue) {
   const int color = pixels.Color(red, green, blue);
-  for (int i = 0; NEOPIXELS_SIZE > i; ++i)
-		pixels.setPixelColor(i, color);
+  for (int i = 0; NEOPIXELS_SIZE > i; ++i) {
+    pixels.setPixelColor(i, color);
+  }
   pixels.show();
 }
