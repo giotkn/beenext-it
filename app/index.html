@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="nav-link" onclick="scrollToSection('accueil')">Accueil</div>
     <div class="nav-link" onclick="scrollToSection('presentation')">Présentation</div>
@@ -18,10 +17,7 @@
     <div class="nav-link" onclick="scrollToSection('marche')">Marché</div>
   </nav>
 
-  <!-- Contenu principal -->
   <div class="app">
-
-    <!-- Accueil -->
     <section id="accueil" class="accueil">
       <div class="accueil2">
         <div class="pens-pour-vous-plaire">Pensé pour vous plaire</div>
@@ -32,8 +28,7 @@
         </div>
       </div>
     </section>
-
-    <!-- Présentation -->
+    
     <section id="presentation" class="pr-sentation">
       <div class="avantages-atouts"><span><span class="avantages-atouts-span">Avantages/Atouts</span></span></div>
       <div class="pourquoi-nous">❓Pourquoi nous?</div>
@@ -65,7 +60,6 @@
       <div class="pr-sentation-du-projet">🔎 Présentation du projet</div>
     </section>
 
-    <!-- Équipe -->
     <section id="equipe" class="ekip">
       <div class="team">
         <div class="fajr">
@@ -94,8 +88,7 @@
       </div>
       <div class="l-quipe">🧑‍💻 L’équipe</div>
     </section>
-
-    <!-- Technologies -->
+    
     <section id="technologies" class="techno">
       <div class="technologies">🛠️ Technologies</div>
       <div class="on-shape-logiciel-de-mod-lisation-3-d-en-ligne-tinkercad-logiciel-de-cr-ation-et-simulation-de-circuits-cloud-flare-plateforme-d-h-bergement-vps-workers-etc-sp-cialis-e-dans-la-protection-anti-ddos-figma-logiciel-de-maquette-design-ui-interface-utilisateur-et-ux-experience-utilisateur-visual-studio-visual-studio-code-ide-collaboratif">
@@ -112,7 +105,6 @@
       <img class="vscode" src="assets/vscode0.png" />
     </section>
 
-    <!-- Marché -->
     <section id="marche" class="march">
       <div class="div">💲 Marché/Cibles<br/></div>
       <div class="bee-next-s-adresse-essentiellement-aux-gamers-et-aux-professionnels-d-intelligence-artificielle-en-effet-la-carte-graphique-nvidia-jetson-super-nano-est-une-carte-tr-s-populaire-pour-la-propulsion-de-syst-me-int-gr-avec-de-l-ia">
@@ -121,7 +113,6 @@
       <img class="man" src="assets/man0.png" />
     </section>
 
-    <!-- Images additionnelles -->
     <div class="prototypes">
       <img class="image-removebg-preview-1" src="assets/image-removebg-preview-10.png" />
       <img class="image-removebg-preview-1-1" src="assets/image-removebg-preview-1-10.png" />
@@ -134,7 +125,6 @@
 
   </div>
 
-  <!-- Script pour scroll doux -->
   <script>
     function scrollToSection(id) {
       document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
